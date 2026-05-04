@@ -12,20 +12,20 @@ A minimal CLI tool to extract images from the clipboard and save them as files, 
 
 **Option 1: Download a prebuilt binary** (recommended)
 
-Grab the latest release for your platform from the [Releases page](https://github.com/nickelc/imgclip/releases).
+Grab the latest release for your platform from the [Releases page](https://github.com/alexyan0431/imgclip/releases).
 
 **Option 2: Build from source**
 
 **Prerequisites:** [Rust](https://rustup.rs/) (1.70+)
 
 ```bash
-cargo install --git https://github.com/nickelc/imgclip.git
+cargo install --git https://github.com/alexyan0431/imgclip.git
 ```
 
 Or build manually:
 
 ```bash
-git clone https://github.com/nickelc/imgclip.git
+git clone https://github.com/alexyan0431/imgclip.git
 cd imgclip
 cargo build --release
 ```
@@ -149,20 +149,20 @@ imgclip --copy diagram.png
 
 **方式一：下载预编译二进制**（推荐）
 
-从 [Releases 页面](https://github.com/nickelc/imgclip/releases) 下载对应平台的最新版本。
+从 [Releases 页面](https://github.com/alexyan0431/imgclip/releases) 下载对应平台的最新版本。
 
 **方式二：从源码构建**
 
 **前置条件：** [Rust](https://rustup.rs/) (1.70+)
 
 ```bash
-cargo install --git https://github.com/nickelc/imgclip.git
+cargo install --git https://github.com/alexyan0431/imgclip.git
 ```
 
 或手动构建：
 
 ```bash
-git clone https://github.com/nickelc/imgclip.git
+git clone https://github.com/alexyan0431/imgclip.git
 cd imgclip
 cargo build --release
 ```
