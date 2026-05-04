@@ -185,7 +185,7 @@ fn parse_impl(args: Vec<std::ffi::OsString>) -> Result<CliArgs, AppError> {
 }
 
 pub fn parse_args() -> Result<CliArgs, AppError> {
-    parse_impl(std::env::args_os().collect())
+    parse_impl(std::env::args_os().skip(1).collect())
 }
 
 fn print_help() {
