@@ -34,6 +34,12 @@ The binary will be at `target/release/imgclip`. Copy it somewhere in your `$PATH
 
 **Windows users:** If you encounter clipboard errors, make sure the terminal session has clipboard access permissions.
 
+## Uninstall
+
+- **`cargo install`:** run `cargo uninstall imgclip`.
+- **Prebuilt zip/binary or manual copy:** delete the executable (find it with `which imgclip` on Unix or `where imgclip` on Windows).
+- **`--install` auto-start:** run `imgclip --uninstall` first to remove the login startup entry, then remove the binary using either bullet above.
+
 ## Quick Start
 
 ```bash
@@ -43,7 +49,7 @@ imgclip --install
 
 That's it. After restarting (or logging in), any image you copy or screenshot will be automatically saved to `~/Pictures/imgclip/` (or `%USERPROFILE%\Pictures\imgclip\` on Windows).
 
-To remove auto-start later: `imgclip --uninstall`
+To remove auto-start later: `imgclip --uninstall`. To remove imgclip entirely, see [Uninstall](#uninstall).
 
 ## Usage
 
@@ -171,6 +177,12 @@ cargo build --release
 
 **Windows 用户：** 如遇剪贴板错误，请确认终端会话拥有剪贴板访问权限。
 
+## 卸载
+
+- **通过 `cargo install` 安装：** 执行 `cargo uninstall imgclip`。
+- **下载的压缩包或手动拷贝的二进制：** 删除该可执行文件（Unix 可用 `which imgclip`，Windows 可用 `where imgclip` 查看路径）。
+- **曾执行过 `--install`：** 先运行 `imgclip --uninstall` 移除开机自启项，再按上两种方式之一删除程序本体。
+
 ## 快速开始
 
 ```bash
@@ -180,7 +192,7 @@ imgclip --install
 
 就这样。重启（或重新登录）后，你复制的任何图片或截图都会自动保存到 `~/Pictures/imgclip/`（Windows 为 `%USERPROFILE%\Pictures\imgclip\`）。
 
-如需移除自启：`imgclip --uninstall`
+如需移除自启：`imgclip --uninstall`。若要彻底卸载本工具，见上文 [卸载](#卸载)。
 
 ## 使用
 
