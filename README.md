@@ -6,7 +6,60 @@
 
 # imgclip
 
+![GitHub Release](https://img.shields.io/github/v/release/alexyan0431/imgclip?include_prereleases)
+![License](https://img.shields.io/github/license/alexyan0431/imgclip)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
+![Rust](https://img.shields.io/badge/rust-1.70%2B-orange)
+
+![imgclip terminal preview](docs/terminal-preview.png)
+
+**Terminal Preview**
+
+```
+$ imgclip --watch
+imgclip: saved ~/Pictures/imgclip/imgclip-1746359527000-1.png
+imgclip: saved ~/Pictures/imgclip/imgclip-1746359595000-2.png
+```
+
+```
+$ imgclip --interactive
+imgclip: interactive mode — watching clipboard for changes
+         [s] save  [d] discard  [q] quit
+imgclip: new image (1920x1080)  [s]ave [d]iscard [q]uit? s
+imgclip: saved ~/Pictures/imgclip/imgclip-1746359722000-1.png
+imgclip: new image (800x600)  [s]ave [d]iscard [q]uit? d
+imgclip: discarded
+```
+
+**How it works**
+
+```
+Copy / Screenshot ──▶ Clipboard ──▶ imgclip ──▶ File / stdout / data URI
+                                        │
+                        ┌───────────────┼───────────────┐
+                        │               │               │
+                     One-shot        Watch          Interactive
+                    (save once)   (auto-save)    (choose per image)
+```
+
 A minimal CLI tool to extract images from the clipboard and save them as files, pipe them to stdout, or convert them to data URIs. Also copies image files **to** the clipboard. Supports a **watch mode** that automatically saves new clipboard images, and an **interactive mode** that lets you selectively save or discard each one.
+
+## Features
+
+- **Zero-config auto-start** — `imgclip --install` sets up login auto-start; clipboard images are saved automatically on every session.
+- **Single binary, zero runtime deps** — Static release build, no installer, no framework. Just drop it in your PATH.
+- **Four modes in one tool** — One-shot capture, continuous watch, interactive selective save, and file-to-clipboard copy.
+- **Flexible output** — Write to file, pipe to stdout, generate a `data:image/...` URI, or create a temp file and print the path.
+- **Cross-platform** — First-class support for Windows, Linux, and macOS (x86_64 + ARM).
+- **Pipeline-friendly** — stdout mode and `--temp` make it easy to chain with `curl`, shell scripts, or any Unix pipeline.
+
+## Why imgclip?
+
+| Scenario | Other tools | imgclip |
+|----------|-------------|---------|
+| Screenshot tools (ShareX, Snipaste) | Need a GUI; heavy for quick capture | CLI-native, runs anywhere including SSH / headless |
+| `xclip` / `pbcopy` | General-purpose, no image watch or auto-save | Purpose-built for clipboard images with `--watch` mode |
+| Custom shell scripts | You maintain edge cases across platforms | Cross-platform, tested on CI (Windows, Linux, macOS) |
 
 ## Install
 
@@ -170,7 +223,60 @@ imgclip --interactive --dir ~/screenshots
 
 # imgclip
 
+![GitHub Release](https://img.shields.io/github/v/release/alexyan0431/imgclip?include_prereleases)
+![License](https://img.shields.io/github/license/alexyan0431/imgclip)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
+![Rust](https://img.shields.io/badge/rust-1.70%2B-orange)
+
+![imgclip 终端预览](docs/terminal-preview.png)
+
+**终端预览**
+
+```
+$ imgclip --watch
+imgclip: saved ~/Pictures/imgclip/imgclip-1746359527000-1.png
+imgclip: saved ~/Pictures/imgclip/imgclip-1746359595000-2.png
+```
+
+```
+$ imgclip --interactive
+imgclip: interactive mode — watching clipboard for changes
+         [s] save  [d] discard  [q] quit
+imgclip: new image (1920x1080)  [s]ave [d]iscard [q]uit? s
+imgclip: saved ~/Pictures/imgclip/imgclip-1746359722000-1.png
+imgclip: new image (800x600)  [s]ave [d]iscard [q]uit? d
+imgclip: discarded
+```
+
+**工作原理**
+
+```
+复制 / 截图 ──▶ 剪贴板 ──▶ imgclip ──▶ 文件 / stdout / data URI
+                                │
+                ┌───────────────┼───────────────┐
+                │               │               │
+             单次模式        监听模式        交互模式
+           (保存一次)     (自动保存)    (逐张选择保存)
+```
+
 一个轻量级命令行工具，从剪贴板提取图片并保存为文件、输出到 stdout 或转换为 data URI。也支持将图片文件复制**到**剪贴板。支持**监听模式**自动保存新图片，以及**交互模式**让你逐张选择保存或丢弃。
+
+## 功能特性
+
+- **零配置开机自启** — `imgclip --install` 一键设置登录自启，每次开机自动保存剪贴板图片。
+- **单文件、零依赖** — 静态编译的 release 产物，无需安装器、无运行时框架，放入 PATH 即可使用。
+- **四种模式合一** — 单次捕获、持续监听、交互式选择性保存、文件到剪贴板复制。
+- **灵活输出** — 写入文件、管道输出到 stdout、生成 `data:image/...` URI、创建临时文件并打印路径。
+- **跨平台** — 原生支持 Windows、Linux、macOS（x86_64 + ARM）。
+- **管道友好** — stdout 模式和 `--temp` 可轻松与 `curl`、Shell 脚本或任何 Unix 管道串联。
+
+## 为什么选择 imgclip？
+
+| 场景 | 其他工具 | imgclip |
+|------|----------|---------|
+| 截图工具（ShareX、Snipaste） | 需要图形界面，快速截图偏重 | CLI 原生，可在 SSH / 无头环境中运行 |
+| `xclip` / `pbcopy` | 通用剪贴板工具，无图片监听和自动保存 | 专为剪贴板图片设计，内置 `--watch` 模式 |
+| 自写 Shell 脚本 | 需自行维护跨平台兼容与边界情况 | 跨平台、CI 测试（Windows、Linux、macOS） |
 
 ## 安装
 
