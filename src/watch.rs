@@ -82,7 +82,7 @@ fn save_last_hash(dir: &Path, hash: u64) {
     let _ = std::fs::write(&path, hash.to_string());
 }
 
-fn save_image(
+pub(crate) fn save_image(
     img: &crate::clipboard::RawImage,
     dir: &Path,
     format: OutputFormat,

@@ -6,6 +6,7 @@ use crate::error::AppError;
 pub enum Mode {
     OneShot,
     Watch,
+    Interactive,
     Copy,
     Install,
     Uninstall,
@@ -16,6 +17,7 @@ impl Mode {
         match self {
             Mode::OneShot => unreachable!(),
             Mode::Watch => "--watch",
+            Mode::Interactive => "--interactive",
             Mode::Copy => "--copy",
             Mode::Install => "--install",
             Mode::Uninstall => "--uninstall",
@@ -127,6 +129,9 @@ fn parse_impl(args: Vec<std::ffi::OsString>) -> Result<CliArgs, AppError> {
             Long("watch") => {
                 set_mode(&mut mode, Mode::Watch)?;
             }
+            Long("interactive") => {
+                set_mode(&mut mode, Mode::Interactive)?;
+            }
             Long("copy") => {
                 copy = Some(parser.value()?.string()?.into());
                 set_mode(&mut mode, Mode::Copy)?;
@@ -193,11 +198,12 @@ fn print_help() {
         "imgclip {version} — Extract images from the clipboard
 
 USAGE:
-    imgclip [OPTIONS]           Save clipboard image (one-shot)
-    imgclip --copy <FILE>       Copy image file to clipboard
-    imgclip --watch [OPTIONS]   Watch clipboard, auto-save new images
-    imgclip --install           Install auto-start (runs --watch on login)
-    imgclip --uninstall         Remove auto-start
+    imgclip [OPTIONS]               Save clipboard image (one-shot)
+    imgclip --copy <FILE>           Copy image file to clipboard
+    imgclip --watch [OPTIONS]       Watch clipboard, auto-save new images
+    imgclip --interactive [OPTIONS] Watch clipboard, choose to save or discard
+    imgclip --install               Install auto-start (runs --watch on login)
+    imgclip --uninstall             Remove auto-start
 
 OPTIONS:
     -o, --output <PATH>     Write image to specified file
@@ -206,14 +212,15 @@ OPTIONS:
         --copy <FILE>       Copy image file to the clipboard
         --data-uri          Output as data URI string
         --temp              Write to temp file, print path to stdout
-        --dir <PATH>        Watch mode save directory (default: ~/Pictures/imgclip)
-        --interval <MS>     Watch mode poll interval in ms (default: 500)
+        --dir <PATH>        Save directory for --watch/--interactive (default: ~/Pictures/imgclip)
+        --interval <MS>     Poll interval in ms for --watch/--interactive (default: 500)
         --quiet             Suppress informational output
     -h, --help              Print help
     -V, --version           Print version
 
 Default behavior: write PNG to stdout (must be piped/redirected).
-Watch mode saves to ~/Pictures/imgclip/ by default.",
+Watch mode saves to ~/Pictures/imgclip/ by default.
+Interactive mode prompts [s]ave / [d]iscard / [q]uit for each new image.",
         version = env!("CARGO_PKG_VERSION")
     );
 }

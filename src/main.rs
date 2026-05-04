@@ -3,6 +3,7 @@ mod clipboard;
 mod convert;
 mod daemon;
 mod error;
+mod interactive;
 mod output;
 mod watch;
 
@@ -37,6 +38,16 @@ fn run() -> Result<(), AppError> {
         cli::Mode::Watch => {
             let dir = watch::resolve_watch_dir(args.watch_dir.as_deref())?;
             watch::watch_loop(&dir, args.format, args.quality, args.quiet, args.interval)?;
+        }
+        cli::Mode::Interactive => {
+            let dir = watch::resolve_watch_dir(args.watch_dir.as_deref())?;
+            interactive::interactive_loop(
+                &dir,
+                args.format,
+                args.quality,
+                args.quiet,
+                args.interval,
+            )?;
         }
         cli::Mode::Install => daemon::install()?,
         cli::Mode::Uninstall => daemon::uninstall()?,

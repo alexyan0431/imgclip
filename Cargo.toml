@@ -14,6 +14,7 @@ lexopt = "0.3"
 image = "0.25"
 base64 = "0.22"
 dirs = "5"
+crossterm = "0.28"
 
 [profile.release]
 opt-level = "z"
