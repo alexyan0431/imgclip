@@ -12,7 +12,11 @@ A minimal CLI tool to extract images from the clipboard and save them as files, 
 
 **Option 1: Download a prebuilt binary** (recommended)
 
-Grab the latest release for your platform from the [Releases page](https://github.com/alexyan0431/imgclip/releases).
+1. Open the [Releases page](https://github.com/alexyan0431/imgclip/releases), pick the latest release, and download an asset from **Assets** (`imgclip-<target>.zip` on Windows, `.tar.gz` elsewhere).
+2. Choose **`<target>`** for your OS/CPU—e.g. `x86_64-pc-windows-msvc`, `x86_64-unknown-linux-gnu`, or `x86_64-apple-darwin` (most PCs and Intel Macs); `aarch64-pc-windows-msvc`, `aarch64-unknown-linux-gnu`, or `aarch64-apple-darwin` for ARM Windows, ARM Linux, or Apple Silicon Macs.
+3. Extract to get `imgclip.exe` or `imgclip`; on Linux/macOS run `chmod +x imgclip` if the file is not executable.
+4. Run it with the full path to the binary, or add its folder to `PATH` if you want to type `imgclip` from any terminal.
+5. Run `imgclip --version` or `--help` to verify; if Windows SmartScreen or macOS Gatekeeper blocks it, unblock in **Properties** or allow under **Privacy & Security** (macOS: `xattr -dr com.apple.quarantine path/to/imgclip` if needed).
 
 **Option 2: Build from source**
 
@@ -172,7 +176,11 @@ imgclip --interactive --dir ~/screenshots
 
 **方式一：下载预编译二进制**（推荐）
 
-从 [Releases 页面](https://github.com/alexyan0431/imgclip/releases) 下载对应平台的最新版本。
+1. 打开 [Releases 页面](https://github.com/alexyan0431/imgclip/releases)，选择最新版本，在 **Assets** 中下载对应压缩包（Windows 为 `imgclip-<target>.zip`，其余平台为 `.tar.gz`）。
+2. 按系统与 CPU 选择 **`<target>`**—常见 PC 与 Intel Mac 用 `x86_64-pc-windows-msvc`、`x86_64-unknown-linux-gnu` 或 `x86_64-apple-darwin`；ARM Windows、ARM Linux 或 Apple Silicon Mac 用 `aarch64-pc-windows-msvc`、`aarch64-unknown-linux-gnu` 或 `aarch64-apple-darwin`。
+3. 解压得到 `imgclip.exe` 或 `imgclip`；若 Linux/macOS 上无法执行，可执行 `chmod +x imgclip`。
+4. 使用可执行文件的**完整路径**运行，或将所在文件夹加入 **PATH** 以便在终端任意目录输入 `imgclip`。
+5. 执行 `imgclip --version` 或 `--help` 自检；若遇 Windows SmartScreen 或 macOS 安全拦截，在 **属性** 中解除锁定或在 **隐私与安全性** 中允许（macOS 可用 `xattr -dr com.apple.quarantine path/to/imgclip`）。
 
 **方式二：从源码构建**
 
