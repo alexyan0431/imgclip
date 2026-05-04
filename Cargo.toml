@@ -1,0 +1,23 @@
+[package]
+name = "imgclip"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.70"
+description = "Extract images from the clipboard to files or stdout"
+license = "MIT"
+keywords = ["clipboard", "image", "screenshot", "cli"]
+categories = ["command-line-utilities", "multimedia::images"]
+
+[dependencies]
+arboard = "3.6"
+lexopt = "0.3"
+image = "0.25"
+base64 = "0.22"
+dirs = "5"
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true
+panic = "abort"
+codegen-units = 1
