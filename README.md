@@ -6,7 +6,7 @@
 
 # imgclip
 
-A minimal CLI tool to extract images from the clipboard and save them as files, pipe them to stdout, or convert them to data URIs. Also copies image files **to** the clipboard. Supports a **watch mode** that automatically saves new clipboard images in the background.
+A minimal CLI tool to extract images from the clipboard and save them as files, pipe them to stdout, or convert them to data URIs. Also copies image files **to** the clipboard. Supports a **watch mode** that automatically saves new clipboard images, and an **interactive mode** that lets you selectively save or discard each one.
 
 ## Install
 
@@ -93,6 +93,19 @@ imgclip --temp
 imgclip -o out.png --quiet
 ```
 
+### Interactive Mode
+
+```bash
+# Watch clipboard and prompt for each new image: [s]ave / [d]iscard / [q]uit
+imgclip --interactive
+
+# Interactive with JPEG output
+imgclip --interactive -f jpeg -q 90
+
+# Custom save directory
+imgclip --interactive --dir ~/screenshots
+```
+
 ### Copy File to Clipboard
 
 ```bash
@@ -106,6 +119,7 @@ imgclip --copy screenshot.jpg
 | Option | Description |
 |--------|-------------|
 | `--watch` | Watch clipboard, auto-save new images |
+| `--interactive` | Watch clipboard, prompt to save or discard each image |
 | `--copy <FILE>` | Copy image file to the clipboard |
 | `--install` | Install auto-start (runs `--watch` on login) |
 | `--uninstall` | Remove auto-start |
@@ -114,8 +128,8 @@ imgclip --copy screenshot.jpg
 | `-q, --quality <1-100>` | JPEG quality (default: 85) |
 | `--data-uri` | Output as `data:image/...;base64,...` string |
 | `--temp` | Write to a temp file, print the path to stdout |
-| `--dir <PATH>` | Watch mode save directory (default: ~/Pictures/imgclip) |
-| `--interval <MS>` | Watch mode poll interval in ms (default: 500) |
+| `--dir <PATH>` | Save directory for `--watch`/`--interactive` (default: ~/Pictures/imgclip) |
+| `--interval <MS>` | Poll interval in ms for `--watch`/`--interactive` (default: 500) |
 | `--quiet` | Suppress informational messages |
 | `-h, --help` | Print help |
 | `-V, --version` | Print version |
@@ -137,6 +151,9 @@ imgclip --temp --quiet | xargs -I{} mv {} ~/screenshots/
 
 # Copy a file to clipboard, then paste into Slack/Docs
 imgclip --copy diagram.png
+
+# Selective capture: only save the screenshots you want
+imgclip --interactive --dir ~/screenshots
 ```
 
 ## License
@@ -149,7 +166,7 @@ imgclip --copy diagram.png
 
 # imgclip
 
-一个轻量级命令行工具，从剪贴板提取图片并保存为文件、输出到 stdout 或转换为 data URI。也支持将图片文件复制**到**剪贴板。支持**监听模式**，自动在后台保存新复制的图片。
+一个轻量级命令行工具，从剪贴板提取图片并保存为文件、输出到 stdout 或转换为 data URI。也支持将图片文件复制**到**剪贴板。支持**监听模式**自动保存新图片，以及**交互模式**让你逐张选择保存或丢弃。
 
 ## 安装
 
@@ -236,6 +253,19 @@ imgclip --temp
 imgclip -o out.png --quiet
 ```
 
+### 交互模式
+
+```bash
+# 监听剪贴板，检测到新图片时提示 [s]保存 / [d]丢弃 / [q]退出
+imgclip --interactive
+
+# 以 JPEG 格式交互保存
+imgclip --interactive -f jpeg -q 90
+
+# 自定义保存目录
+imgclip --interactive --dir ~/screenshots
+```
+
 ### 复制文件到剪贴板
 
 ```bash
@@ -249,6 +279,7 @@ imgclip --copy screenshot.jpg
 | 选项 | 说明 |
 |------|------|
 | `--watch` | 监听剪贴板，自动保存新图片 |
+| `--interactive` | 监听剪贴板，逐张选择保存或丢弃 |
 | `--copy <FILE>` | 将图片文件复制到剪贴板 |
 | `--install` | 安装开机自启（登录时运行 `--watch`） |
 | `--uninstall` | 移除开机自启 |
@@ -257,8 +288,8 @@ imgclip --copy screenshot.jpg
 | `-q, --quality <1-100>` | JPEG 质量（默认 85） |
 | `--data-uri` | 输出为 `data:image/...;base64,...` 字符串 |
 | `--temp` | 写入临时文件，将路径打印到 stdout |
-| `--dir <PATH>` | 监听模式保存目录（默认 ~/Pictures/imgclip） |
-| `--interval <MS>` | 监听模式轮询间隔（毫秒，默认 500） |
+| `--dir <PATH>` | `--watch`/`--interactive` 保存目录（默认 ~/Pictures/imgclip） |
+| `--interval <MS>` | `--watch`/`--interactive` 轮询间隔（毫秒，默认 500） |
 | `--quiet` | 静默信息输出 |
 | `-h, --help` | 显示帮助 |
 | `-V, --version` | 显示版本 |
@@ -280,6 +311,9 @@ imgclip --temp --quiet | xargs -I{} mv {} ~/screenshots/
 
 # 复制文件到剪贴板，然后粘贴到 Slack/文档
 imgclip --copy diagram.png
+
+# 选择性截图：只保存想要的截图
+imgclip --interactive --dir ~/screenshots
 ```
 
 ## 许可证
