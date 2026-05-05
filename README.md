@@ -11,9 +11,9 @@
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
 ![Rust](https://img.shields.io/badge/rust-1.70%2B-orange)
 
-![imgclip terminal preview](docs/terminal-preview.png)
+![imgclip demo](docs/demo.gif)
 
-**Terminal Preview**
+**Demo**
 
 ```
 $ imgclip --watch
@@ -228,9 +228,9 @@ imgclip --interactive --dir ~/screenshots
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
 ![Rust](https://img.shields.io/badge/rust-1.70%2B-orange)
 
-![imgclip 终端预览](docs/terminal-preview.png)
+![imgclip 演示](docs/demo.gif)
 
-**终端预览**
+**演示**
 
 ```
 $ imgclip --watch

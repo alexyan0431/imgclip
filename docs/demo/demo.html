@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1b26;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+  }
+  .terminal {
+    width: 900px;
+    background: #1a1b26;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .titlebar {
+    background: #24283b;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+  .titlebar-text {
+    flex: 1;
+    text-align: center;
+    color: #565f89;
+    font-size: 13px;
+    font-family: -apple-system, sans-serif;
+    margin-right: 44px;
+  }
+  .content {
+    padding: 20px 24px;
+    min-height: 400px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #a9b1d6;
+  }
+  .line { white-space: pre; }
+  .prompt { color: #7aa2f7; }
+  .cmd { color: #c0caf5; }
+  .output { color: #9ece6a; }
+  .info { color: #565f89; }
+  .key { color: #bb9af7; }
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 18px;
+    background: #c0caf5;
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  #terminal-content { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="terminal">
+  <div class="titlebar">
+    <div class="dot red"></div>
+    <div class="dot yellow"></div>
+    <div class="dot green"></div>
+    <div class="titlebar-text">imgclip demo</div>
+  </div>
+  <div class="content" id="terminal-content"></div>
+</div>
+
+<script>
+const el = document.getElementById('terminal-content');
+let lines = [];
+
+function addLine(html) {
+  const div = document.createElement('div');
+  div.className = 'line';
+  div.innerHTML = html;
+  el.appendChild(div);
+  lines.push(div);
+}
+
+function clearTerminal() {
+  el.innerHTML = '';
+  lines = [];
+}
+
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function typeCommand(text) {
+  const div = document.createElement('div');
+  div.className = 'line';
+  const promptSpan = '<span class="prompt">$ </span>';
+  div.innerHTML = promptSpan + '<span class="cmd"></span><span class="cursor"></span>';
+  el.appendChild(div);
+  const cmdSpan = div.querySelector('.cmd');
+  const cursorSpan = div.querySelector('.cursor');
+
+  for (let i = 0; i < text.length; i++) {
+    cmdSpan.textContent += text[i];
+    await sleep(40 + Math.random() * 30);
+  }
+  cursorSpan.remove();
+}
+
+async function addOutput(text, cls = 'output') {
+  await sleep(200);
+  const div = document.createElement('div');
+  div.className = 'line';
+  div.innerHTML = `<span class="${cls}">${text}</span>`;
+  el.appendChild(div);
+}
+
+async function runDemo() {
+  // Wait for puppeteer to be ready
+  await sleep(500);
+  window.__demoReady = true;
+
+  // === Scene 1: One-shot save ===
+  await typeCommand('imgclip -o screenshot.png');
+  await sleep(400);
+  await addOutput('imgclip: saved screenshot.png');
+  await sleep(1200);
+
+  // === Scene 2: Watch mode ===
+  await typeCommand('imgclip --watch');
+  await sleep(600);
+  await addOutput('imgclip: watching clipboard... (Ctrl+C to stop)');
+  await sleep(1000);
+  await addOutput('imgclip: saved ~/Pictures/imgclip/imgclip-1746359527000-1.png');
+  await sleep(900);
+  await addOutput('imgclip: saved ~/Pictures/imgclip/imgclip-1746359595000-2.png');
+  await sleep(900);
+  await addOutput('imgclip: saved ~/Pictures/imgclip/imgclip-1746359612000-3.png');
+  await sleep(800);
+  await addOutput('^C', 'key');
+  await sleep(1000);
+
+  // === Scene 3: Interactive mode ===
+  await typeCommand('imgclip --interactive');
+  await sleep(500);
+  await addOutput('imgclip: interactive mode — watching clipboard for changes');
+  await addOutput('         [s] save  [d] discard  [q] quit', 'info');
+  await sleep(1000);
+  await addOutput('imgclip: new image (1920x1080)  [s]ave [d]iscard [q]uit? s');
+  await sleep(400);
+  await addOutput('imgclip: saved ~/Pictures/imgclip/imgclip-1746359722000-1.png');
+  await sleep(1000);
+  await addOutput('imgclip: new image (800x600)  [s]ave [d]iscard [q]uit? d');
+  await sleep(400);
+  await addOutput('imgclip: discarded');
+  await sleep(800);
+
+  // === Scene 4: Copy to clipboard ===
+  await typeCommand('imgclip --copy diagram.png');
+  await sleep(400);
+  await addOutput('imgclip: copied diagram.png to clipboard');
+  await sleep(1000);
+
+  // Signal completion
+  window.__demoDone = true;
+}
+
+runDemo();
+</script>
+</body>
+</html>
