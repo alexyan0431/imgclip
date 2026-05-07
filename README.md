@@ -213,6 +213,10 @@ imgclip --copy diagram.png
 imgclip --interactive --dir ~/screenshots
 ```
 
+## Community
+
+- [linux.do](https://linux.do) — Linux & Open Source Community
+
 ## License
 
 [MIT](LICENSE)
@@ -429,6 +433,10 @@ imgclip --copy diagram.png
 # 选择性截图：只保存想要的截图
 imgclip --interactive --dir ~/screenshots
 ```
+
+## 友链
+
+- [linux.do](https://linux.do) — Linux 与开源技术社区
 
 ## 许可证
 
